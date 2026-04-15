@@ -70,4 +70,17 @@ contract CodeEater is IERC20 {
         allowedTokens[msg.sender][spender] = value;
         return true;
     }
+
+    function transferFrom(
+        address from,
+        address to,
+        uint256 value
+    ) external returns (bool) {
+        require(to != address(0), "Invalid address");
+        require(from != address(0), "Invalid address");
+        require(balanceOfUser[from] >= value, "Insufficient balance");
+        balanceOfUser[from] -= value;
+        balanceOfUser[to] += value;
+        return true;
+    }
 }

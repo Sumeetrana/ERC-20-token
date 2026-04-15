@@ -35,18 +35,23 @@ interface IERC20 {
 }
 
 contract CodeEater is IERC20 {
-    contract CodeEater is IERC20 {
     address public founder;
-    uint public totalSupply = 1000; // number of tokens    
+    uint public totalSupply = 1000; // number of tokens
     mapping(address => uint) public balanceOfUser;
 
     constructor() {
         founder = msg.sender;
-        balanceOfUser[founder]=totalSupply;
+        balanceOfUser[founder] = totalSupply;
     }
 
-    function balanceOf(address account) external view returns(uint256) {
+    function balanceOf(address account) external view returns (uint256) {
         return balanceOfUser[account];
     }
-}  
+
+    function transfer(address to, uint256 value) external returns (bool) {
+        require(to != address(0), "Invalid address");
+        require(balanceOfUser[msg.sender] >= value, "Insufficient balance");
+        balanceOfUser[msg.sender] -= value;
+        balanceOfUser[to] += value;
+    }
 }

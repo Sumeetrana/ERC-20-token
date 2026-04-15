@@ -81,6 +81,9 @@ contract CodeEater is IERC20 {
         require(to != address(0), "Invalid address");
         require(from != address(0), "Invalid address");
         require(balanceOfUser[from] >= value, "Insufficient balance");
+        require(allowedTokens[from][to] >= value, "Insufficient balance");
+
+        allowedTokens[from][to] -= value;
         balanceOfUser[from] -= value;
         balanceOfUser[to] += value;
         emit Transfer(from, to, value);

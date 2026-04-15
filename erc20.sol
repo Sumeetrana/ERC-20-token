@@ -33,3 +33,7 @@ interface IERC20 {
         uint256 value
     ) external returns (bool);
 }
+
+contract CodeEater is IERC20 {
+    uint public totalSupply = 1000; // number of tokens    
+}

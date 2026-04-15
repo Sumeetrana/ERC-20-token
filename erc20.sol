@@ -54,6 +54,7 @@ contract CodeEater is IERC20 {
         require(balanceOfUser[msg.sender] >= value, "Insufficient balance");
         balanceOfUser[msg.sender] -= value;
         balanceOfUser[to] += value;
+        emit Transfer(msg.sender, to, value);
         return true;
     }
 
@@ -68,6 +69,7 @@ contract CodeEater is IERC20 {
         require(spender != address(0), "Invalid address");
         require(balanceOfUser[msg.sender] >= value, "Insufficient balance");
         allowedTokens[msg.sender][spender] = value;
+        emit Approval(msg.sender, spender, value);
         return true;
     }
 
@@ -81,6 +83,7 @@ contract CodeEater is IERC20 {
         require(balanceOfUser[from] >= value, "Insufficient balance");
         balanceOfUser[from] -= value;
         balanceOfUser[to] += value;
+        emit Transfer(from, to, value);
         return true;
     }
 }

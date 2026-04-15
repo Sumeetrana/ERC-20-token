@@ -63,4 +63,11 @@ contract CodeEater is IERC20 {
     ) external view returns (uint256) {
         return allowedTokens[owner][spender];
     }
+
+    function approve(address spender, uint256 value) external returns (bool) {
+        require(spender != address(0), "Invalid address");
+        require(balanceOfUser[msg.sender] >= value, "Insufficient balance");
+        allowedTokens[msg.sender][spender] = value;
+        return true;
+    }
 }

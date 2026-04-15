@@ -38,6 +38,7 @@ contract CodeEater is IERC20 {
     address public founder;
     uint public totalSupply = 1000; // number of tokens
     mapping(address => uint) public balanceOfUser;
+    mapping(address => mapping(address => uint)) public allowedTokens;
 
     constructor() {
         founder = msg.sender;
@@ -53,5 +54,13 @@ contract CodeEater is IERC20 {
         require(balanceOfUser[msg.sender] >= value, "Insufficient balance");
         balanceOfUser[msg.sender] -= value;
         balanceOfUser[to] += value;
+        return true;
+    }
+
+    function allowance(
+        address owner,
+        address spender
+    ) external view returns (uint256) {
+        return allowedTokens[owner][spender];
     }
 }
